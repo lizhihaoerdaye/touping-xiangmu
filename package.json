@@ -1,0 +1,23 @@
+{
+  "name": "touping-xiangmu",
+  "version": "1.0.0",
+  "description": "electronapp",
+  "main": "app/main/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"concurrently \"npm run start:render\" \"wait-on http://localhost:3000 && npm run start:main\" ",
+    "start:main": "electron .",
+    "start:render": "cd app/renderer/src/main && npm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "electron": "^8.0.0",
+    "wait-on": "^5.3.0"
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0"
+  }
+}
