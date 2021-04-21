@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './views/Home/Home.js'
-
+import AllPage from './views/index'
 import './assets/scss/resume-react.scss';
 
 ReactDOM.render(
-    <Home/>,
+    <AllPage />,
   document.getElementById('root')
 );
 

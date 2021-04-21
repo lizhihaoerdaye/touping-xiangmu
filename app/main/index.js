@@ -1,19 +1,29 @@
-const { app,BrowserWindow } =  require('electron');
-const isDev = require('electron-is-dev');// 用于区分生产环境与开发环境插件
-const path = require('path');
-
-let win;
-app.on('ready',()=>{
-    win = new BrowserWindow({
-        width:600,
-        heigth:300,
-        webPreferences: {
-            nodeIntegration: true
-        }
+const { app } =  require('electron');
+const {create: createMainWindow,show:showMainWindow,close:closeMainWindow} = require('./windows/main')
+const handleIPC = require('./ipc')
+if(require('electron-squirrel-startup')) app.quit()
+// 禁止多开
+const gotTheLock = app.requestSingleInstanceLock()
+if(!gotTheLock){
+    app.quit()
+}else{
+    app.on('second-instance', () => {
+        // 当运行第二个实例时,将会聚焦到myWindow这个窗口
+        showMainWindow()
     })
-    if(isDev){
-        win.loadURL('http://localhost:3000')
-    }else{
-        win.loadFile(path.resolve(__dirname,'../renderer/pages/main/index.html'))
-    }
-})
+    app.on('will-finish-launching', () => {
+        require('./updater.js')
+    })
+    app.on('ready', () => {
+        createMainWindow()
+        handleIPC()
+        require('./trayAndMenu')
+    })
+    app.on('before-quit', () => {
+        closeMainWindow()
+    })
+    app.on('activate', () => {
+        // process.crash()
+        showMainWindow()
+    })
+}
