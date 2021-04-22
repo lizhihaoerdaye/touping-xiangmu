@@ -1,7 +1,7 @@
 const { app } =  require('electron');
+const isDev = require('electron-is-dev')
 const {create: createMainWindow,show:showMainWindow,close:closeMainWindow} = require('./windows/main')
 const handleIPC = require('./ipc')
-if(require('electron-squirrel-startup')) app.quit()
 // 禁止多开
 const gotTheLock = app.requestSingleInstanceLock()
 if(!gotTheLock){
@@ -12,9 +12,15 @@ if(!gotTheLock){
         showMainWindow()
     })
     app.on('will-finish-launching', () => {
-        require('./updater.js')
+        if(!isDev){
+            console.log('1111111')
+            require('./updaterTest.js')
+        }else{
+            console.log('2222222')
+        }
     })
     app.on('ready', () => {
+        console.log('333333333333333')
         createMainWindow()
         handleIPC()
         require('./trayAndMenu')

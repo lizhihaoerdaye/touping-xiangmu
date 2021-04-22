@@ -19,13 +19,12 @@
     "concurrently": "^5.0.2",
     "electron": "^7.1.8",
     "electron-builder": "^22.3.2",
-    "electron-builder-squirrel-windows": "^22.3.3",
     "wait-on": "^3.3.0"
   },
   "dependencies": {
     "about-window": "^1.13.2",
     "electron-is-dev": "^1.1.0",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-updater": "^4.3.5"
   },
   "build": {
     "appId": "com.geektime.mercurius",
@@ -35,15 +34,16 @@
     "extraFiles": [
       "app/renderer/**/src"
     ],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://10.168.254.159:33855/public/"
+      }
+    ],
     "directories": {
       "buildResources": "resource",
       "output": "release"
     },
-    "publish": [{
-        "provider": "generic",
-        "channel": "latest",
-        "url": "http://127.0.0.1:33855/download/"
-    }],
     "copyright": "Copyright © 2020 dragon",
     "mac": {
       "target": [
@@ -75,8 +75,8 @@
     },
     "win": {
       "icon": "resources/icon.ico",
+      "artifactName": "${productName}_Setup_${version}.${ext}",
       "target": [
-        "squirrel",
         "nsis"
       ]
     },
