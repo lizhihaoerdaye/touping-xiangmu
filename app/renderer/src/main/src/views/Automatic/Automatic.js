@@ -1,10 +1,9 @@
 import React,{useState,useEffect} from 'react';
 import {ipcRenderer} from 'electron';
-const LoginPage = (props) =>{
+const Automatic = (props) =>{
     const [text,setText] = useState('');
     const [downloadPercent,setDownloadPercent] = useState(0);
     const testBtn = ()=>{
-        console.log('44444444443144')
         ipcRenderer.send("checkForUpdate");
     }
     useEffect(()=>{
@@ -28,7 +27,7 @@ const LoginPage = (props) =>{
     },[])
     return(
         <div>
-            LoginPage页面
+            Automatic自动更新页面
             <div>{text}</div>
             <div>{downloadPercent}</div>
             <button onClick={()=>{testBtn()}}>测试更新</button>
@@ -36,4 +35,4 @@ const LoginPage = (props) =>{
     )
 }
 
-export default LoginPage;
+export default Automatic;

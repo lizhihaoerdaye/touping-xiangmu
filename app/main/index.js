@@ -13,14 +13,14 @@ if(!gotTheLock){
     })
     app.on('will-finish-launching', () => {
         if(!isDev){
-            console.log('1111111')
-            require('./updaterTest.js')
-        }else{
-            console.log('2222222')
+            // 自动更新
+            // require('./automaticUpdater.js')
+            
+            // 手动更新
+            require('./manualUpdate.js')
         }
     })
     app.on('ready', () => {
-        console.log('333333333333333')
         createMainWindow()
         handleIPC()
         require('./trayAndMenu')
