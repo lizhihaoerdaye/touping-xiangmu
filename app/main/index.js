@@ -32,4 +32,7 @@ if(!gotTheLock){
         // process.crash()
         showMainWindow()
     })
+    // app.whenReady().then(()=>{
+    //     showMainWindow()
+    // })
 }

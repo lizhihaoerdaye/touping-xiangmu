@@ -9,7 +9,8 @@ const Manual = () =>{
     const [percentage,setPercentage] = useState(0);
     const [updateSuccess,setUpdateSuccess] = useState('none');
     const [textSuccess,setTextSuccess] = useState('');
-    const [markdownStr] = useState('# electron + rreact 投屏项目\r\n\r\n# Getting Started with Create React App\r\n\r\nThis project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).\r\n\r\n## Available Scripts\r\n\r\nIn the project directory, you can run:\r\n\r\n### `yarn start`\r\n\r\nRuns the app in the development mode.\\\r\nOpen [http://localhost:3000](http://localhost:3000) to view it in the browser.\r\n\r\nThe page will reload if you make edits.\\\r\nYou will also see any lint errors in the console.')
+    const [versionNumber,setVersionNumber] = useState('');
+    const [releaseNotes,setReleaseNotes] = useState('');
     useEffect(()=>{
         // 监听更新状态
         ipcRenderer.on('UpdateMsg', (event, msg, arg) => {
@@ -42,11 +43,14 @@ const Manual = () =>{
         // 检查更新返回内容
         ipcRenderer.on('update-check-result',(event,state,data)=>{
             console.log(state,data)
-            // if(state === 1){
-                
-            // }else if(state === 2){
-
-            // }
+            if(state === 1){
+                const { updateInfo } = data
+                setVersionNumber(updateInfo.version)
+                setReleaseNotes(updateInfo.releaseNotes)
+            }else if(state === 2){
+                setVersionNumber(data)
+                setReleaseNotes('')
+            }
         })
         return()=>{
             ipcRenderer.removeListener('UpdateMsg',()=>{});
@@ -60,7 +64,6 @@ const Manual = () =>{
         ipcRenderer.send("confirm-update");
     }
     const checkUpdate = () =>{
-        console.log('去手动更新')
         ipcRenderer.send("check-update");
     }
     return(
@@ -72,8 +75,13 @@ const Manual = () =>{
             <div><button style={{display:displayState}} onClick={()=>{confirmDownloadUpdate()}}>下载新版本</button></div>
             <div><button style={{display:updateSuccess}} onClick={()=>{confirmUpdate()}}>下载完成后点击</button></div>
             <div>
+                <span>版本号 </span>
+                <span>{versionNumber}</span>
+            </div>
+            <div>
+                <div>版本说明</div>
                 <ReactMarkdown>
-                    {markdownStr}
+                    {releaseNotes}
                 </ReactMarkdown>
             </div>
         </div>

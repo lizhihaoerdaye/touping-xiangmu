@@ -1,6 +1,6 @@
 {
   "name": "screencontrol",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "electronapp",
   "main": "app/main/index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "build": {
     "appId": "com.qijie.controlScreen",
-    "productName": "ControlScreen",
+    "productName": "控制投屏",
     "files": "app",
     "asar": false,
     "extraFiles": [
@@ -41,7 +41,6 @@
       }
     ],
     "releaseInfo":{
-      "releaseName":"1.0.0",
       "releaseNotesFile":"README.md"
     },
     "directories": {

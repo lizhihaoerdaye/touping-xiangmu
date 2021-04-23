@@ -12,6 +12,7 @@ function create () {
             nodeIntegration: true
         },
         // show: false,
+        title:'控制投屏'
     })
     win.on('close', (e) => {
         if (willQuitApp) {
