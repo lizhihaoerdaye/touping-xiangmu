@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {ipcRenderer,remote} from 'electron';
+import {ipcRenderer} from 'electron';
 const Home = (props) =>{
     const [remoteCode, setRemoteCode] = useState('');
     const [localCode, setLocalCode] = useState('');
@@ -35,14 +35,14 @@ const Home = (props) =>{
         }
     }, [])
 
-    const handleContextMenu = (e) => {
-        e.preventDefault()
-        // remote 调用主进程中的方法
-        const { Menu, MenuItem  } = remote
-        const menu = new Menu()
-        menu.append(new MenuItem({ label: '复制', role: 'copy' }))
-        menu.popup()
-    }
+    // const handleContextMenu = (e) => {
+    //     e.preventDefault()
+    //     // remote 调用主进程中的方法
+    //     const { Menu, MenuItem  } = remote
+    //     const menu = new Menu()
+    //     menu.append(new MenuItem({ label: '复制', role: 'copy' }))
+    //     menu.popup()
+    // }
 
     return(
         <div>

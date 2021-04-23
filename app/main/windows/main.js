@@ -6,13 +6,17 @@ let win
 let willQuitApp = false
 function create () {
     win = new BrowserWindow({
-        width: 600,
-        height: 300,
+        width: 950,
+        height: 650,
         webPreferences: {
             nodeIntegration: true
         },
+        // frame: false,
         // show: false,
-        title:'控制投屏'
+        backgroundColor:'#e5e5e5',
+        // transparent:true,
+        // autoHideMenuBar:true,
+        title:'控制投屏',
     })
     win.on('close', (e) => {
         if (willQuitApp) {

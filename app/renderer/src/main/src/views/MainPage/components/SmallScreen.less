@@ -1,0 +1,44 @@
+.smallModule{
+    padding: 0 1em;
+    .square{
+        position: relative;
+        width: 100%;
+        // height: 0;
+        padding-bottom: 100%; /* padding百分比是相对父元素宽度计算的 */
+        // margin-bottom: 30px;
+        .squareInner{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* 铺满父元素容器，这时候宽高就始终相等了 */
+            min-height: 500px;
+        }
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 相当于 1fr 1fr 1fr */
+            grid-template-rows: repeat(3, 1fr); /* fr单位可以将容器分为几等份 */
+            // grid-gap: 4%; /* grid-column-gap 和 grid-row-gap的简写 */
+            grid-column-gap:4%;
+            grid-row-gap:12%;
+            grid-auto-flow: row;
+          }
+          .automaticDiv{
+            height: 100%;
+            background: #2e2c29;
+            border-radius: 5%;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+
+            text-align: center;
+            display: flex;
+            /*实现垂直居中*/
+            align-items: center;
+            /*实现水平居中*/
+            justify-content: center;
+            
+            text-align: justify;
+          }
+    }
+}
