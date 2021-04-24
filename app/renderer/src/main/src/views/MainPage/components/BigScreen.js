@@ -47,6 +47,8 @@ const BigScreen = (props)=>{
                                 bodyStyle={{height:'100vh',borderRadius:'none',backgroundColor:'#2e2c29'}}
                                 closable={false}
                                 footer={null}
+                                wrapClassName={styles.wrapClassName}
+                                getContainer={false}
                                 visible={screenVisible}
                                 onCancel={handleCancel}
                                 >

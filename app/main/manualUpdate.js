@@ -1,7 +1,10 @@
 const {ipcMain} = require('electron')
 const {autoUpdater} = require('electron-updater')
-const {send:sendUpdateMessage} = require('./windows/main')
-const uploadUrl = `http://10.168.254.159:33855/public/`
+const {send:sendUpdateMessage,pushProgressBar} = require('./windows/main')
+const uploadUrl = `http://192.168.31.207:3100/public/`
+// 192.168.31.207:3100
+	  
+// 49.232.150.90:3000
 // 在下载之前将autoUpdater的autoDownload属性设置成false，通过渲染进程触发主进程事件来实现这一设置(将自动更新设置成false)
 autoUpdater.autoDownload = false
 autoUpdater.setFeedURL(uploadUrl);
@@ -31,6 +34,9 @@ autoUpdater.on('update-not-available', (event, arg) => {
 // 下载监听
 autoUpdater.on('download-progress', (progressObj) => {
     sendUpdateMessage('UpdateMsg', 3, progressObj)
+    if(progressObj && progressObj.percent){
+        pushProgressBar(progressObj.percent/100)
+    }
 })
 
 // 下载完成

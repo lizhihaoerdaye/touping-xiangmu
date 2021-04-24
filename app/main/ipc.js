@@ -1,5 +1,5 @@
-const {ipcMain} = require('electron')
-const {send: sendMainWindow} = require('./windows/main')
+const {app,ipcMain} = require('electron')
+const {send: sendMainWindow,removeView} = require('./windows/main')
 
 module.exports = function () {
     ipcMain.handle('login', async () => {
@@ -11,4 +11,13 @@ module.exports = function () {
         // 这里是跟服务端的交互，成功后我们会唤起面板
         sendMainWindow('control-state-change', remote, 1)
     })
+
+    ipcMain.handle('vsersion-message',()=>{
+        return app.getVersion()
+    })
+
+    ipcMain.on('stop-loading-main',()=>{
+        removeView()
+    })
+    
 }

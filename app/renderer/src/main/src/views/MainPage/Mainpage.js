@@ -1,3 +1,4 @@
+import {ipcRenderer} from 'electron'
 import React,{useEffect, useState} from 'react';
 import { Row, Col} from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -6,7 +7,8 @@ import HeadTitle from './components/HeadTitle';
 import SmallScreen from './components/SmallScreen';
 import BigScreen from './components/BigScreen';
 import InstructionsViwe from './components/InstructionsViwe';
-import {getMainWins,getHeader,getIntroduction} from '../../services/mainPage'
+import {getMainWins,getHeader,getIntroduction} from '../../services/mainPage';
+
 
 import styles from './index.less';
 // const styles = require('./index.less')
@@ -25,6 +27,7 @@ const Mainpage = (props)=>{
     //     })
     // }
     useEffect(()=>{
+        ipcRenderer.send('stop-loading-main')
         getMainWins().then(res=>{
             if(res && res.success){
                 let arr = []
