@@ -32,7 +32,7 @@ const Mainpage = (props)=>{
             if(res && res.success){
                 let arr = []
                 res.data.forEach((list,index)=>{
-                    if(list.id === 2){
+                    if(list.winId === 2){
                         setMainView(list)
                     }else{
                         arr.push(list)
