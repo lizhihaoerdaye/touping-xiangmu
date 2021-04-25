@@ -57,7 +57,7 @@ const BigScreen = (props)=>{
                                             <Button type="primary" shape="circle" icon="close" size="large" loading={btnDisable} onClick={()=>{handleCancel()}}/>
                                         </div>
                                         <div className={styles.textShow}>
-                                            {mainView.inputName}
+                                            {mainView&&mainView.inputName?mainView.inputName:''}
                                         </div>
                                     </div>
                             </Modal>
