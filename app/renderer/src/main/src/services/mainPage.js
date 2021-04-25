@@ -25,3 +25,14 @@ export function postSetFullScreen(params){
 export function postCloseFullScreen(params){
     return request.post(`${baseUrl}/window/closeFullScreen`,{data:params})
 }
+
+
+// 获取所有视频源
+export function getVideoSources(params){
+    return request.get(`${baseUrl}/videoSource/getVideoSources`)
+}
+
+// 窗口更换视频源
+export function postSwitchSignal(params){
+    return request.post(`${baseUrl}/window/switchSignal`,{data:params})
+}

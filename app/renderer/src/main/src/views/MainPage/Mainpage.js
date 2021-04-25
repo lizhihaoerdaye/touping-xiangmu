@@ -14,7 +14,7 @@ import styles from './index.less';
 // const styles = require('./index.less')
 
 const Mainpage = (props)=>{
-    const [mainView,setMainView] = useState(null);
+    const [mainView,setMainView] = useState({});
     const [smallView,setSmallView] = useState([]);
     const [headTextTitle,setHeadTitle] = useState(null);
     const [instructionsText,setInstructionsText] = useState(null);
@@ -42,7 +42,7 @@ const Mainpage = (props)=>{
             }
         }).catch(err=>{
             setSmallView([])
-            setMainView(null)
+            setMainView({})
         })
 
         getHeader().then(res=>{
