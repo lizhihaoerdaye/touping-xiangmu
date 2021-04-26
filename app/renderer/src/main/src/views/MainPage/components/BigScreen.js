@@ -16,7 +16,6 @@ const BigScreen = (props)=>{
     const [sources, setSources] = useState([]);
 
 
-
     const handleCancel = ()=>{
         setBtnDisable(true);
         postCloseFullScreen({winId:mainView.winId}).then(res=>{
@@ -43,27 +42,30 @@ const BigScreen = (props)=>{
 
     //从后端接口动态获取Sources的方法
     const getSourcesList=()=> {
-        const that = this;
         getVideoSources()
             .then(function (res) {
                 setSources(res.data);
             });
     }
 
-    const handleSelectEnd = (value)=>{
-      
-        console.log("input = "+JSON.stringify(value));
-        let input = value.split("|-|")[0];
-        let name = value.split("|-|")[1];
-        postSwitchSignal({winId:mainView.winId,input:input}).then(res=>{
-            if(res&&res.success){
-                setSelectVisible(false);
-                // mainView.inputName=name;
-                setWinName(name);
-            }
-        }).catch(err=>{
+    const handleSelectEnd = (value)=>{      
+        console.log("input = "+value);
+        if(!value){
             setSelectVisible(false);
-        })
+        }else{
+            let input = value.split("|-|")[0];
+            let name = value.split("|-|")[1];
+            postSwitchSignal({winId:mainView.winId,input:input}).then(res=>{
+                if(res&&res.success){
+                    setSelectVisible(false);
+                    // mainView.inputName=name;
+                    setWinName(name);
+                }
+            }).catch(err=>{
+                setSelectVisible(false);
+            })
+        }
+       
     }
     
     const handleSelect = ()=>{
@@ -71,9 +73,6 @@ const BigScreen = (props)=>{
         getSourcesList();
     }
 
-    const handleChange = ()=>{
-       
-    }
 
     return(
         <div className={styles.bigModule}>
@@ -99,12 +98,12 @@ const BigScreen = (props)=>{
                                         </div>
                                         <div className={styles.textShow}>
                                             {/* {mainView&&mainView.inputName?mainView.inputName:''} */}
-                                            {winName}
+                                            {winName?winName:mainView.inputName}
                                         </div>
                                     </div>
                             </Modal>
                         </div>
-                        <div className={styles.middleDepend}>{winName?winName:'无视频源'}</div>
+                        <div className={styles.middleDepend}>{winName?winName:mainView.inputName}</div>
                         <div className={styles.rightDepend}>
                             <Button disabled={(mainView&&mainView.winId)?false:true} type="primary" shape="circle" icon="more"  size="large"  onClick={()=>{handleSelect()}}/>
                             <Modal
@@ -116,7 +115,7 @@ const BigScreen = (props)=>{
                                 wrapClassName={styles.wrapClassName}
                                 getContainer={false}
                                 visible={selectVisible}
-                                onCancel={handleSelectEnd}
+                                onCancel={handleSelectEnd.bind(this,0)}
                                 >
                                     <div className={styles.fullScreen}>
                                         <Select

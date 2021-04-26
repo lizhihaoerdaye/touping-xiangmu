@@ -24,21 +24,58 @@
             grid-auto-flow: row;
           }
           .automaticDiv{
+            display: flex;
             height: 100%;
             background: #2e2c29;
-            border-radius: 5%;
-            color: #fff;
-            font-size: 20px;
-            font-weight: bold;
-
-            text-align: center;
-            display: flex;
-            /*实现垂直居中*/
-            align-items: center;
-            /*实现水平居中*/
-            justify-content: center;
-            
-            text-align: justify;
+            border-radius: 2%;
+            flex-direction: column;
+            justify-content: space-between;
+            .rightDepend{
+                text-align: right;
+                padding: 10px 10px 10px 0px;
+            }
+            .middleDepend{
+                flex: 1;
+                text-align: center;
+                display: flex;
+                /*实现垂直居中*/
+                align-items: center;
+                /*实现水平居中*/
+                justify-content: center;
+                color: #fff;
+                font-size: 20px;
+                font-weight: bold;
+            }
           }
     }
+}
+
+.fullScreen{
+  height: 100%;
+  display: flex;
+  flex-direction:column;
+  // justify-content:space-between;
+  .cancelBtn{
+      text-align: right;
+  }
+  .textShow{
+      flex: 1;
+      text-align: center;
+      display: flex;
+      /*实现垂直居中*/
+      align-items: center;
+      /*实现水平居中*/
+      justify-content: center;
+      
+      text-align: justify;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+  }
+} 
+
+.wrapClassName{
+  :global(.ant-modal-content){
+      border-radius:0px;
+  }   
 }
