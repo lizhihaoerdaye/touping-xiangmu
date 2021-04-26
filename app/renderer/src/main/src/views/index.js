@@ -10,7 +10,9 @@ import { Scrollbars } from 'react-custom-scrollbars';
 // import Automatic from './Automatic/Automatic'
 // import Manual from './Manual/Manual'
 import Mainpage from './MainPage/Mainpage'
-import TestPage from './TestPage/TestPage'
+import EditorVideo from './EditorVideo/EditorVideo'
+import EditorRichText from './EditorRichText/EditorRichText'
+// import TestPage from './TestPage/TestPage'
 
 import 'antd/dist/antd.css';
 
@@ -107,15 +109,18 @@ const AllPage = (props)=>{
     },[])
     return(
         <div style={{width:'100vw',height:'100vh'}}>
-            <HashRouter>
-                <Switch>
-                    <Route exact path={'/'} component={Mainpage} />
-                    <Route exact path={'/test-page'} component={TestPage} />
-                    {/* <Route exact path={'/home-page'} component={Home} />
-                    <Route exact path={'/automatic-page'} component={Automatic} />
-                    <Route exact path={'/manual-page'} component={Manual} /> */}
-                </Switch>
-            </HashRouter>
+            <Scrollbars style={{ width: "100%", height: "100%" }}>
+                <HashRouter>
+                    <Switch>
+                        <Route exact path={'/'} component={Mainpage} />
+                        <Route exact path={'/editor-rich-Text'} component={EditorRichText} />
+                        <Route exact path={'/editor-video'} component={EditorVideo} />
+                        {/* <Route exact path={'/test-page'} component={TestPage} /> */}
+                        {/* <Route exact path={'/home-page'} component={Home} />
+                        <Route exact path={'/automatic-page'} component={Automatic} />
+                        <Route exact path={'/manual-page'} component={Manual} /> */}
+                    </Switch>
+                </HashRouter>
             <Modal
                 title={textSuccess}
                 visible={updateVisible}
@@ -148,6 +153,7 @@ const AllPage = (props)=>{
                         </div>
                     </Scrollbars>
             </Modal>
+            </Scrollbars>
         </div>
     )
 }

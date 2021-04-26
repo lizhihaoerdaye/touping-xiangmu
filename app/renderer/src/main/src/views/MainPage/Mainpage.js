@@ -1,13 +1,12 @@
 import {ipcRenderer} from 'electron'
 import React,{useEffect, useState} from 'react';
-import { Row, Col} from 'antd';
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Row, Col, Button} from 'antd';
 
 import HeadTitle from './components/HeadTitle';
 import SmallScreen from './components/SmallScreen';
 import BigScreen from './components/BigScreen';
 import InstructionsViwe from './components/InstructionsViwe';
-import {getMainWins,getHeader,getIntroduction} from '../../services/mainPage';
+import {getMainWins,getHeader,getIntroduction,getVideoSources} from '../../services/mainPage';
 
 
 import styles from './index.less';
@@ -18,15 +17,22 @@ const Mainpage = (props)=>{
     const [smallView,setSmallView] = useState([]);
     const [headTextTitle,setHeadTitle] = useState(null);
     const [instructionsText,setInstructionsText] = useState(null);
+    const [mainVideoSources,setMainVideoSources] = useState([]);
 
-    // const goToTestPage = ()=>{
-    //     console.log(props)
-    //     props.history.push({
-    //         pathname:'/test-page',
-    //         state:{name:'mainpage'}
-    //     })
-    // }
+    const goToEditorVideo = ()=>{
+        props.history.push({
+            pathname:'/editor-video',
+        })
+    }
+
+    const goToEditorRichText = ()=>{
+        props.history.push({
+            pathname:'/editor-rich-Text',
+        })
+    }
+
     useEffect(()=>{
+        // 这里代表租金挂载的生命周期
         ipcRenderer.send('stop-loading-main')
         getMainWins().then(res=>{
             if(res && res.success){
@@ -61,26 +67,32 @@ const Mainpage = (props)=>{
             setInstructionsText(null)
         })
 
-        return()=>{}
+        getVideoSources().then(res=>{
+            if(res && res.success){
+                setMainVideoSources(res.data)
+            }
+        })
+        return()=>{
+            // 这里代表租金卸载的生命周期
+        }
     },[])
     return(
-        <Scrollbars style={{ width: "100%", height: "100%" }}>
-            <div className={styles.mainpagediv}>
-                <HeadTitle headTextTitle={headTextTitle}/>
-                <Row>
-                    <Col span={8}>
-                        <SmallScreen smallView={smallView}/>
-                    </Col>
-                    <Col span={10}>
-                        <BigScreen mainView={mainView}/>
-                    </Col>
-                    <Col span={6}>
-                        <InstructionsViwe instructionsText={instructionsText}/>
-                    </Col>
-                </Row>
-                {/* <Button onClick={()=>{goToTestPage()}}>跳转到测试页面</Button> */}
-            </div>
-        </Scrollbars>
+        <div className={styles.mainpagediv}>
+            <HeadTitle headTextTitle={headTextTitle}/>
+            <Row>
+                <Col span={8}>
+                    <SmallScreen smallView={smallView} mainVideoSources={mainVideoSources}/>
+                </Col>
+                <Col span={10}>
+                    <BigScreen mainView={mainView} mainVideoSources={mainVideoSources}/>
+                </Col>
+                <Col span={6}>
+                    <InstructionsViwe instructionsText={instructionsText}/>
+                </Col>
+            </Row>
+            <Button type="primary" className={styles.editorVideo} onClick={()=>{goToEditorVideo()}}>编辑视频源名称</Button>
+            <Button type="primary" className={styles.editorIntroduce} onClick={()=>{ goToEditorRichText()}}>编辑平台介绍</Button>
+        </div>
     )
 }
 

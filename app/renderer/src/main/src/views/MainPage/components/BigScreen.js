@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Button,Modal,Select } from 'antd';
-import {postSetFullScreen,postCloseFullScreen,getVideoSources,postSwitchSignal} from '../../../services/mainPage'
+import {postSetFullScreen,postCloseFullScreen,postSwitchSignal} from '../../../services/mainPage'
 import styles from './BigScreen.less';
 const { Option } = Select;
 
@@ -9,12 +9,12 @@ const BigScreen = (props)=>{
     const [screenVisible,setScreenVisible] = useState(false);
     const [btnDisable,setBtnDisable] = useState(false);
    
-    const {mainView} = props;
+    const {mainView,mainVideoSources} = props;
     const [winName,setWinName] = useState(null);
 
     const [selectVisible,setSelectVisible] = useState(false);
-    const [sources, setSources] = useState([]);
 
+    const [initialSelVal,setInitialSelVal] = useState(undefined);
 
     const handleCancel = ()=>{
         setBtnDisable(true);
@@ -40,13 +40,6 @@ const BigScreen = (props)=>{
         })
     }
 
-    //从后端接口动态获取Sources的方法
-    const getSourcesList=()=> {
-        getVideoSources()
-            .then(function (res) {
-                setSources(res.data);
-            });
-    }
 
     const handleSelectEnd = (value)=>{      
         console.log("input = "+value);
@@ -70,7 +63,13 @@ const BigScreen = (props)=>{
     
     const handleSelect = ()=>{
         setSelectVisible(true);
-        getSourcesList();
+        if(mainVideoSources.length>0){
+            mainVideoSources.forEach((list,index)=>{
+                if(list.name === mainView.inputName){
+                    setInitialSelVal(list.input+"|-|"+list.name)
+                }
+            })
+        }
     }
 
 
@@ -120,14 +119,14 @@ const BigScreen = (props)=>{
                                     <div className={styles.fullScreen}>
                                         <Select
                                         style={{ width: 240 }}
-                                        defaultValue={Option.valueOf() }
+                                        value={initialSelVal}
                                         onChange={value => handleSelectEnd(value)}
                                         allowClear
                                         >
                                         {
-                                            sources.map((item,i)=>{
+                                            mainVideoSources.map((item,i)=>{
                                                 return(
-                                                    <Option index={i} value={item.input+"|-|"+item.name}>{item.name}</Option>
+                                                    <Option key={item.input+"|-|"+item.name} index={i} value={item.input+"|-|"+item.name}>{item.name}</Option>
                                                  )
                                                 }
                                             )

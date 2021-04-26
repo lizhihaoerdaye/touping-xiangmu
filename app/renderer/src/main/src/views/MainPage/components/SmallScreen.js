@@ -2,17 +2,18 @@ import React,{useState}  from 'react';
 import classNames from "classnames";
 import styles from './SmallScreen.less'
 import {Button,Modal,Select } from 'antd';
-import {postSetFullScreen,postCloseFullScreen,getVideoSources,postSwitchSignal} from '../../../services/mainPage'
+import {postSetFullScreen,postCloseFullScreen,postSwitchSignal} from '../../../services/mainPage'
 const { Option } = Select;
 
 // 小屏幕模块
 const SmallScreen = (props)=>{
     const [btnDisable,setBtnDisable] = useState(false);
-    const [sources, setSources] = useState([]);
     const [selectVisibles,setSelectVisibles] = useState([false,false,false,false,false,false]);
     const [screenVisibles, setScreenVisibles] = useState([false,false,false,false,false,false]);
     const [names, setNames] = useState([null,null,null,null,null,null]);
-    const {smallView} = props
+
+    const [initialSelVal,setInitialSelVal] = useState(undefined);
+    const {smallView,mainVideoSources} = props
 
     
     const handleCancel = (winId,index)=>{
@@ -43,19 +44,18 @@ const SmallScreen = (props)=>{
         })
     }
 
-    //从后端接口动态获取Sources的方法
-    const getSourcesList=()=> {
-        getVideoSources()
-            .then(function (res) {
-                setSources(res.data);
-            });
-    }
-
     const handleSelect = (index)=>{
         const newSelectVisibles = [...selectVisibles];
         newSelectVisibles[index] = true;
         setSelectVisibles(newSelectVisibles);
-        getSourcesList();
+        if(mainVideoSources.length>0){
+            mainVideoSources.forEach((list,ind)=>{
+                if(list.name === smallView[index].inputName){
+                    setInitialSelVal(list.input+"|-|"+list.name)
+                }
+            })
+        }
+        // getSourcesList();
     }
 
     const handleSelectEnd = (winId,index,value)=>{
@@ -142,14 +142,15 @@ const SmallScreen = (props)=>{
                                             <div className={styles.fullScreen}>
                                                 <Select
                                                 style={{ width: 240 }}
-                                                defaultValue={Option.valueOf() }
+                                                // defaultValue={Option.valueOf() }
+                                                value={initialSelVal}
                                                 onChange={value => handleSelectEnd(item.winId,index,value)}
                                                 allowClear
                                                 >
                                                 {
-                                                    sources.map((item,i)=>{
+                                                    mainVideoSources.map((item,i)=>{
                                                         return(
-                                                            <Option index={i} value={item.input+"|-|"+item.name}>{item.name}</Option>
+                                                            <Option key={item.input+"|-|"+item.name} index={i} value={item.input+"|-|"+item.name}>{item.name}</Option>
                                                         )
                                                         }
                                                     )
