@@ -75,7 +75,21 @@
 } 
 
 .wrapClassName{
-  :global(.ant-modal-content){
-      border-radius:0px;
+  :global{
+    .ant-modal-content{
+        border-radius:0px;
+        height: 100vh;
+        background-color:#2e2c29;
+    }
+    .ant-modal{
+        padding-bottom:0px;
+    }
   }   
+}
+.wrapSmallClassName{
+    :global{
+        .ant-modal{
+            padding-bottom:0px;
+        }
+      }   
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'antd'
 import styles from './HeadTitle.less';
 
 const HeadTitle = (props)=>{

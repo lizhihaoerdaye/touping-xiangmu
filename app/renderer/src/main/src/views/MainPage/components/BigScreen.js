@@ -16,6 +16,9 @@ const BigScreen = (props)=>{
 
     const [initialSelVal,setInitialSelVal] = useState(undefined);
 
+    const [myTopPositioning,setTopPositioning] = useState(0);
+    const [myLeftPositioning,setLeftPositioning] = useState(0);
+
     const handleCancel = ()=>{
         setBtnDisable(true);
         postCloseFullScreen({winId:mainView.winId}).then(res=>{
@@ -61,7 +64,9 @@ const BigScreen = (props)=>{
        
     }
     
-    const handleSelect = ()=>{
+    const handleSelect = (e)=>{
+        setTopPositioning(e.clientY)
+        setLeftPositioning(e.clientX)
         setSelectVisible(true);
         if(mainVideoSources.length>0){
             mainVideoSources.forEach((list,index)=>{
@@ -104,14 +109,14 @@ const BigScreen = (props)=>{
                         </div>
                         <div className={styles.middleDepend}>{winName?winName:mainView.inputName}</div>
                         <div className={styles.rightDepend}>
-                            <Button disabled={(mainView&&mainView.winId)?false:true} type="primary" shape="circle" icon="more"  size="large"  onClick={()=>{handleSelect()}}/>
+                            <Button disabled={(mainView&&mainView.winId)?false:true} type="primary" shape="circle" icon="more"  size="large"  onClick={(e)=>{handleSelect(e)}}/>
                             <Modal
-                                
-                                style={{height:'70vh',top: '15vh'}}
-                                bodyStyle={{height:'70vh',borderRadius:'none',backgroundColor:'#2e2c29'}}
+                                width={240}
+                                style={{position:'absolute',left:myLeftPositioning,top: myTopPositioning}}
+                                bodyStyle={{padding:'0px'}}
                                 closable={false}
                                 footer={null}
-                                wrapClassName={styles.wrapClassName}
+                                wrapClassName={styles.wrapSmallClassName}
                                 getContainer={false}
                                 visible={selectVisible}
                                 onCancel={handleSelectEnd.bind(this,0)}

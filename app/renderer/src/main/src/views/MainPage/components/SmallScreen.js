@@ -12,6 +12,11 @@ const SmallScreen = (props)=>{
     const [screenVisibles, setScreenVisibles] = useState([false,false,false,false,false,false]);
     const [names, setNames] = useState([null,null,null,null,null,null]);
 
+    const [myTopPositioning,setTopPositioning] = useState(0);
+    const [myLeftPositioning,setLeftPositioning] = useState(0);
+
+
+
     const [initialSelVal,setInitialSelVal] = useState(undefined);
     const {smallView,mainVideoSources} = props
 
@@ -44,7 +49,9 @@ const SmallScreen = (props)=>{
         })
     }
 
-    const handleSelect = (index)=>{
+    const handleSelect = (e,index)=>{
+        setTopPositioning(e.clientY)
+        setLeftPositioning(e.clientX)
         const newSelectVisibles = [...selectVisibles];
         newSelectVisibles[index] = true;
         setSelectVisibles(newSelectVisibles);
@@ -107,8 +114,8 @@ const SmallScreen = (props)=>{
                                         <Button type="primary" size="small" disabled={(item&&item.winId)?false:true} loading={btnDisable}  icon="fullscreen"  onClick={()=>{handleOpen(item.winId,index)}}></Button>
                                         <Modal
                                             width="100%"
-                                            style={{height:'100vh',top: 0}}
-                                            bodyStyle={{height:'100vh',borderRadius:'none',backgroundColor:'#2e2c29'}}
+                                            style={{top: 0}}
+                                            bodyStyle={{height:'100vh'}}
                                             closable={false}
                                             footer={null}
                                             wrapClassName={styles.wrapClassName}
@@ -128,13 +135,14 @@ const SmallScreen = (props)=>{
                                     </div>                              
                                     <div className={styles.middleDepend}> {names[index]?names[index]:item.inputName}</div>    
                                     <div className={styles.rightDepend}>
-                                        <Button disabled={(item.winId)?false:true} type="primary" shape="circle" icon="more"  size="small"  onClick={()=>{handleSelect(index)}}/>
-                                        <Modal                               
-                                        style={{height:'70vh',top: '15vh'}}
-                                        bodyStyle={{height:'70vh',borderRadius:'none',backgroundColor:'#2e2c29'}}
+                                        <Button disabled={(item.winId)?false:true} type="primary" shape="circle" icon="more"  size="small"  onClick={(e)=>{handleSelect(e,index)}}/>
+                                        <Modal                   
+                                        width={240}            
+                                        style={{position:'absolute',left:myLeftPositioning,top: myTopPositioning}}
+                                        bodyStyle={{padding:'0px'}}
                                         closable={false}
                                         footer={null}
-                                        wrapClassName={styles.wrapClassName}
+                                        wrapClassName={styles.wrapSmallClassName}
                                         getContainer={false}
                                         visible={selectVisibles[index]}
                                         onCancel={handleSelectEnd.bind(this,null,index,null)}
