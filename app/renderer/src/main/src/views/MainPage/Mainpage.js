@@ -19,6 +19,13 @@ const Mainpage = (props)=>{
     const [instructionsText,setInstructionsText] = useState(null);
     const [mainVideoSources,setMainVideoSources] = useState([]);
 
+    const goToEditorHeader = ()=>{
+        props.history.push({
+            pathname:'/editor-header',
+        })
+    }
+
+    
     const goToEditorVideo = ()=>{
         props.history.push({
             pathname:'/editor-video',
@@ -27,7 +34,7 @@ const Mainpage = (props)=>{
 
     const goToEditorRichText = ()=>{
         props.history.push({
-            pathname:'/editor-rich-Text',
+            pathname:'/editor-content',
         })
     }
 
@@ -90,6 +97,7 @@ const Mainpage = (props)=>{
                     <InstructionsViwe instructionsText={instructionsText}/>
                 </Col>
             </Row>
+            <Button type="primary" className={styles.editorTitle} onClick={()=>{ goToEditorHeader()}}>编辑标题</Button>
             <Button type="primary" className={styles.editorVideo} onClick={()=>{goToEditorVideo()}}>编辑视频源名称</Button>
             <Button type="primary" className={styles.editorIntroduce} onClick={()=>{ goToEditorRichText()}}>编辑平台介绍</Button>
         </div>

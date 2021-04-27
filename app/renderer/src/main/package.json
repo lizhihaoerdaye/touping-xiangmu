@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^3.23.6",
+    "braft-editor": "^2.3.9",
     "classnames": "^2.3.1",
     "compare-versions": "^3.6.0",
     "less": "^3.11.3",

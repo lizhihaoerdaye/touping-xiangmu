@@ -49,12 +49,12 @@ class CreateForm extends React.Component {
                     <Form.Item label="ID">
                     {getFieldDecorator('id', {
                         rules: [{ required: true, message: '请输入id' }],
-                    })(<Input />)}
+                    })(<Input disabled={true} />)}
                     </Form.Item>
                     <Form.Item label="Input">
                     {getFieldDecorator('input', {
                         rules: [{ required: true, message: '请输入input' }],
-                    })(<Input />)}
+                    })(<Input disabled={true}  />)}
                     </Form.Item>
                     <Form.Item label="名称">
                     {getFieldDecorator('name', {

@@ -11,7 +11,9 @@ import { Scrollbars } from 'react-custom-scrollbars';
 // import Manual from './Manual/Manual'
 import Mainpage from './MainPage/Mainpage'
 import EditorVideo from './EditorVideo/EditorVideo'
-import EditorRichText from './EditorRichText/EditorRichText'
+import EditorContent from './EditorContent/EditorContent'
+import EditorHeader from './EditorHeader/EditorHeader'
+
 // import TestPage from './TestPage/TestPage'
 
 import 'antd/dist/antd.css';
@@ -113,7 +115,8 @@ const AllPage = (props)=>{
                 <HashRouter>
                     <Switch>
                         <Route exact path={'/'} component={Mainpage} />
-                        <Route exact path={'/editor-rich-Text'} component={EditorRichText} />
+                        <Route exact path={'/editor-content'} component={EditorContent} />
+                        <Route exact path={'/editor-header'} component={EditorHeader} />
                         <Route exact path={'/editor-video'} component={EditorVideo} />
                         {/* <Route exact path={'/test-page'} component={TestPage} /> */}
                         {/* <Route exact path={'/home-page'} component={Home} />

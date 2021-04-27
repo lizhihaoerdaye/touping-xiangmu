@@ -7,8 +7,8 @@ let view
 let willQuitApp = false
 function create () {
     win = new BrowserWindow({
-        width: 950,
-        height: 650,
+        width: 1440,
+        height: 810,
         webPreferences: {
             nodeIntegration: true
         },

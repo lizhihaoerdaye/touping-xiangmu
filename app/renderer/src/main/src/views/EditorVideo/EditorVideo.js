@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button,Table ,Modal } from 'antd';
+import { Button,Table ,Modal,message } from 'antd';
 import CollectionCreateForm from './components/CollectionCreateForm'
-import {getVideoSources} from '../../services/mainPage'
+import {getVideoSources,postUpdateVideoSources} from '../../services/mainPage'
 
 class EditorVideo extends React.Component{
     constructor(props){
@@ -14,7 +14,13 @@ class EditorVideo extends React.Component{
         }
     }
 
+
+
     componentDidMount(){
+        this.initData();
+    }
+
+    initData=()=>{
         getVideoSources().then(res=>{
             this.setState({loading:false})
             if(res && res.success){
@@ -24,20 +30,37 @@ class EditorVideo extends React.Component{
             this.setState({loading:false})
         })
     }
+
     editorFn = (obj)=>{
         this.setState({
             currentEditor:obj,
             currentVisible:true,
         })
     }
+
     handleOk = ()=>{
         const { form } = this.formRef.props;
         form.validateFields((err, values) => {
           if (err) {
             return;
           }
-    
           console.log('要上传的参数', values);
+        postUpdateVideoSources(values).then(res=>{
+            if(res&&res.success){
+                this.setState({
+                    currentVisible:false,
+                });
+                message.success('修改成功');
+                this.initData();
+            }else{
+                message.error('修改失败');
+            }
+        }).catch(err=>{
+           
+            message.error('修改失败');
+        })
+    
+      
         //   form.resetFields();// 清空表单
         //   this.setState({currentVisible:false});// 关闭弹出
         });
@@ -74,9 +97,9 @@ class EditorVideo extends React.Component{
             },
         ];
         return(
-            <div style ={{padding:'20px'}}>
+            <div style ={{padding:'10px'}}>
                 <Button type="danger" style={{marginBottom:'20px'}} onClick={()=>this.props.history.goBack()}>返回</Button> 
-                <div style={{backgroundColor:'white',borderRadius:'5px',padding:'20px'}}>
+                <div style={{backgroundColor:'white',borderRadius:'5px',padding:'10px'}}>
                     <Table
                     bordered= {true}
                     rowKey='id'
@@ -84,7 +107,7 @@ class EditorVideo extends React.Component{
                     dataSource={videoSources}
                     loading={loading} 
                     pagination={{
-                        defaultPageSize: 10,
+                        defaultPageSize: 12,
                         showSizeChanger: true,
                         total: videoSources.length,
                         showTotal: (total)=>(<span>{`共${total}条数据`}</span>),

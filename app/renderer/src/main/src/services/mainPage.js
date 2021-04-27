@@ -6,9 +6,20 @@ export function getHeader(){
     return request.get(`${baseUrl}/introduction/getHeader`)
 }
 
+// 更新标题
+export function postHeader(params){
+    return request.post(`${baseUrl}/introduction/updateIntroduction`,{data:params})
+}
+
+
 // 获取介绍
 export function getIntroduction(){
     return request.get(`${baseUrl}/introduction/getIntroduction`)
+}
+
+// 更新介绍
+export function postIntroduction(params){
+    return request.post(`${baseUrl}/introduction/updateIntroduction`,{data:params})
 }
 
 // 获取主页面窗口
@@ -32,7 +43,19 @@ export function getVideoSources(params){
     return request.get(`${baseUrl}/videoSource/getVideoSources`)
 }
 
+// 更新视频源
+export function postUpdateVideoSources(params){
+    return request.post(`${baseUrl}/videoSource/updateVideoSources`,{data:params})
+}
+
 // 窗口更换视频源
 export function postSwitchSignal(params){
     return request.post(`${baseUrl}/window/switchSignal`,{data:params})
 }
+
+// // 窗口更换视频源
+// export function postSwitchSignal(params){
+//     return request.post(`${baseUrl}/window/switchSignal`,{data:params})
+// }
+
+
