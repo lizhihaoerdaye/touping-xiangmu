@@ -17,11 +17,11 @@ function create () {
         // backgroundColor:'#e5e5e5',
         // transparent:true,
         // autoHideMenuBar:true,
-        title:'控制投屏',
+        title:'大屏控制',
     })
     view = new BrowserView()
     win.setBrowserView(view)
-    view.setBounds({ x: 0, y: 0, width: 950, height: 650 })
+    view.setBounds({ x: 0, y: 0, width: 1440, height: 810 })
     view.webContents.loadFile(path.join(__dirname,'../../renderer/pages/loading/index.html'))
     view.webContents.on('dom-ready', () => {
         win.show()

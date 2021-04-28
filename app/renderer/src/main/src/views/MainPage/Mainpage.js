@@ -1,12 +1,12 @@
 import {ipcRenderer} from 'electron'
 import React,{useEffect, useState} from 'react';
-import { Row, Col, Button} from 'antd';
+import { Row, Col, Button,message,Modal } from 'antd';
 
 import HeadTitle from './components/HeadTitle';
 import SmallScreen from './components/SmallScreen';
 import BigScreen from './components/BigScreen';
 import InstructionsViwe from './components/InstructionsViwe';
-import {getMainWins,getHeader,getIntroduction,getVideoSources} from '../../services/mainPage';
+import {getMainWins,getHeader,getIntroduction,getVideoSources,postCloseScreen,postOpenScreen,postInitWindow} from '../../services/mainPage';
 
 
 import styles from './index.less';
@@ -38,6 +38,35 @@ const Mainpage = (props)=>{
         })
     }
 
+    const closeScreen = ()=>{
+        postCloseScreen().then(res=>{
+            if(res && res.success){
+                message.success('操作成功');
+            }
+        }).catch(err=>{
+            message.error('操作失败');
+        })
+    }
+
+    const openScreen = ()=>{
+        postOpenScreen().then(res=>{
+            if(res && res.success){
+                message.success('操作成功');
+            }
+        }).catch(err=>{
+            message.error('操作失败');
+        })
+    }
+
+    const initWindow = ()=>{
+        postInitWindow().then(res=>{
+            if(res && res.success){
+                message.success('操作成功');
+            }
+        }).catch(err=>{
+            message.error('操作失败');
+        })
+    }
     useEffect(()=>{
         // 这里代表租金挂载的生命周期
         ipcRenderer.send('stop-loading-main')
@@ -100,6 +129,27 @@ const Mainpage = (props)=>{
             <Button type="primary" className={styles.editorTitle} onClick={()=>{ goToEditorHeader()}}>编辑标题</Button>
             <Button type="primary" className={styles.editorVideo} onClick={()=>{goToEditorVideo()}}>编辑视频源名称</Button>
             <Button type="primary" className={styles.editorIntroduce} onClick={()=>{ goToEditorRichText()}}>编辑平台介绍</Button>
+            <Button type="primary" className={styles.closeScreen} onClick={()=>Modal.confirm({
+                                                title:  "关闭屏幕",
+                                                content: '确定关闭屏幕吗？',
+                                                okText: '确认',
+                                                cancelText: '取消',
+                                                onOk: () => closeScreen(),
+                                            })}>关闭屏幕</Button>
+            <Button type="primary" className={styles.openScreen} onClick={()=>Modal.confirm({
+                                                title:  "打开屏幕",
+                                                content: '确定打开屏幕吗？',
+                                                okText: '确认',
+                                                cancelText: '取消',
+                                                onOk: () => openScreen(),
+                                            })}>打开屏幕</Button>
+            <Button type="primary" className={styles.initWindow} onClick={()=>Modal.confirm({
+                                                title:  "初始化窗口",
+                                                content: '确定初始化窗口吗？',
+                                                okText: '确认',
+                                                cancelText: '取消',
+                                                onOk: () => initWindow(),
+                                            })}>初始化窗口</Button>
         </div>
     )
 }

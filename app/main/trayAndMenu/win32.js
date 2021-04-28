@@ -15,8 +15,8 @@ app.whenReady().then(() => {
         { type: 'separator' },
         { label: '退出', click: () => {app.quit()}}
     ])
-    tray.setToolTip('投屏控制')
+    tray.setToolTip('大屏控制')
     tray.setContextMenu(contextMenu)
-    // menu = Menu.buildFromTemplate([])
-    // app.applicationMenu = menu;
+    menu = Menu.buildFromTemplate([])
+    app.applicationMenu = menu;
 })

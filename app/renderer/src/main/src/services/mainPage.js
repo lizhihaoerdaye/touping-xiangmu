@@ -53,9 +53,19 @@ export function postSwitchSignal(params){
     return request.post(`${baseUrl}/window/switchSignal`,{data:params})
 }
 
-// // 窗口更换视频源
-// export function postSwitchSignal(params){
-//     return request.post(`${baseUrl}/window/switchSignal`,{data:params})
-// }
+// 关闭屏幕
+export function postCloseScreen(){
+    return request.post(`${baseUrl}/serail/off`)
+}
+
+// 打开屏幕
+export function postOpenScreen(){
+    return request.post(`${baseUrl}/serail/on`)
+}
+
+// 打开屏幕
+export function postInitWindow(){
+    return request.post(`${baseUrl}/window/initWindow`)
+}
 
 
