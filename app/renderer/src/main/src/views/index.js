@@ -13,6 +13,7 @@ import Mainpage from './MainPage/Mainpage'
 import EditorVideo from './EditorVideo/EditorVideo'
 import EditorContent from './EditorContent/EditorContent'
 import EditorHeader from './EditorHeader/EditorHeader'
+import SplitScreen from './SplitScreen/SplitScreen'
 
 // import TestPage from './TestPage/TestPage'
 
@@ -118,6 +119,8 @@ const AllPage = (props)=>{
                         <Route exact path={'/editor-content'} component={EditorContent} />
                         <Route exact path={'/editor-header'} component={EditorHeader} />
                         <Route exact path={'/editor-video'} component={EditorVideo} />
+                        <Route exact path={'/split-screen'} component={SplitScreen} />
+                        
                         {/* <Route exact path={'/test-page'} component={TestPage} /> */}
                         {/* <Route exact path={'/home-page'} component={Home} />
                         <Route exact path={'/automatic-page'} component={Automatic} />

@@ -6,7 +6,30 @@ import BraftEditor from 'braft-editor';
 import styles from './EditorHeader.less';
 import {getHeader,postHeader} from '../../services/mainPage'
 
-const submitArray = ['创建', '修改'];
+const submitArray = ['创建', '保存'];
+
+const fontFamilies = [
+    {
+        name: 'Araial',
+        family: 'Arial, Helvetica, sans-serif'
+    },
+    { name: '仿宋', family: '仿宋' },
+    { name: '宋体', family: '宋体,SimSun' },
+    { name: '微软雅黑', family: '宋体,Microsoft Yahei' },
+    { name: '楷体', family: '楷体 ' },
+    { name: '思源黑体', family: '思源黑体' },
+     { name: '隶书', family: '隶书' },
+  ]
+
+const controls = [
+    'undo', 'redo', 'separator',
+    'font-size', 'line-height', 'letter-spacing','font-family', 'separator',
+    'text-color', 'bold', 'italic', 'underline', 'strike-through', 'separator',
+    'remove-styles', 'emoji',  'separator',  'separator',
+    'headings', 'blockquote', 'code', 'separator',
+    'link', 'separator', 'hr', 'separator',
+    'clear'
+]
 
 class EditorHeader extends React.Component {
 
@@ -20,7 +43,7 @@ class EditorHeader extends React.Component {
             currentVisible:false
         }
     }
-      componentWillMount () {
+      componentDidMount () {
         this.initData();
       }
 
@@ -57,9 +80,10 @@ class EditorHeader extends React.Component {
               postHeader(submitData).then(res=>{
                 if(res&&res.success){
                     this.initData();
+                    message.success('保存成功');
                 }
             }).catch(err=>{
-               
+                message.error('保存失败');
             })
 
             }
@@ -98,16 +122,17 @@ class EditorHeader extends React.Component {
                 })(
                     <BraftEditor
                     className={styles.editor}
+                    fontFamilies ={fontFamilies} 
+                    controls = {controls}
                     placeholder="请输入标题内容"
                     />
                 )}
                 </Form.Item>
                 <Form.Item>
-
                 <Button  size="large" type="primary"  onClick={() =>
                                 Modal.confirm({
-                                                title:  "修改标题",
-                                                content: '确定修改吗？',
+                                                title:  "保存标题",
+                                                content: '确定保存吗？',
                                                 okText: '确认',
                                                 cancelText: '取消',
                                                 onOk: () => this.handleSubmit(),

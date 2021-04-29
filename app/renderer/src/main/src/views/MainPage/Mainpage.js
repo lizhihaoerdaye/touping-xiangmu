@@ -38,6 +38,12 @@ const Mainpage = (props)=>{
         })
     }
 
+    const goToSplitScreen = ()=>{
+        props.history.push({
+            pathname:'/split-screen',
+        })
+    }
+
     const closeScreen = ()=>{
         postCloseScreen().then(res=>{
             if(res && res.success){
@@ -127,8 +133,8 @@ const Mainpage = (props)=>{
                 </Col>
             </Row>
             <Button type="primary" className={styles.editorTitle} onClick={()=>{ goToEditorHeader()}}>编辑标题</Button>
-            <Button type="primary" className={styles.editorVideo} onClick={()=>{goToEditorVideo()}}>编辑视频源名称</Button>
-            <Button type="primary" className={styles.editorIntroduce} onClick={()=>{ goToEditorRichText()}}>编辑平台介绍</Button>
+            <Button type="primary" className={styles.editorVideo} onClick={()=>{goToEditorVideo()}}>编辑视频源</Button>
+            <Button type="primary" className={styles.editorIntroduce} onClick={()=>{ goToEditorRichText()}}>编辑平台</Button>
             <Button type="primary" className={styles.closeScreen} onClick={()=>Modal.confirm({
                                                 title:  "关闭屏幕",
                                                 content: '确定关闭屏幕吗？',
@@ -150,6 +156,7 @@ const Mainpage = (props)=>{
                                                 cancelText: '取消',
                                                 onOk: () => initWindow(),
                                             })}>初始化窗口</Button>
+            <Button type="primary" className={styles.splitScreen} onClick={()=>{ goToSplitScreen()}}>两分屏</Button>
         </div>
     )
 }

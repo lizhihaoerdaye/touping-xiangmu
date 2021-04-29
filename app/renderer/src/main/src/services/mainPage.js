@@ -68,4 +68,18 @@ export function postInitWindow(){
     return request.post(`${baseUrl}/window/initWindow`)
 }
 
+// 获取两分屏页面窗口
+export function getSplitScreenWins(params){
+    return request.get(`${baseUrl}/window/getSplitScreenWins`)
+}
 
+
+// 切换为两分屏
+export function postSetSplitScreen(params){
+    return request.post(`${baseUrl}/window/setSplitScreen` )
+}
+
+// 关闭两分屏
+export function postCloseSplitScreen(params){
+    return request.post(`${baseUrl}/window/closeSplitScreen` )
+}
