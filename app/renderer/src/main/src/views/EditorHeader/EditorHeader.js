@@ -122,6 +122,7 @@ class EditorHeader extends React.Component {
                 })(
                     <BraftEditor
                     className={styles.editor}
+                    contentClassName={styles.editorContent}
                     fontFamilies ={fontFamilies} 
                     controls = {controls}
                     placeholder="请输入标题内容"
