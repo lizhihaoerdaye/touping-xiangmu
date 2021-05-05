@@ -17,6 +17,6 @@ app.whenReady().then(() => {
     ])
     tray.setToolTip('大屏控制')
     tray.setContextMenu(contextMenu)
-    menu = Menu.buildFromTemplate([])
-    app.applicationMenu = menu;
+    // menu = Menu.buildFromTemplate([])
+    // app.applicationMenu = menu;
 })

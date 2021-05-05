@@ -33,6 +33,7 @@ if(!gotTheLock){
         showMainWindow()
     })
     app.on('window-all-closed', (evt) => {
+        
       app.quit() // 显示调用quit才会退出
       // 回调函数什么也不做也不会退出
     });
